@@ -32,7 +32,7 @@ var Main = React.createClass({
             <div>
                 <form onSubmit={this.handleSubmit}>
                     <input ref="seed" type="text"/>
-                    <ModeSelectBox ref="mode" selectValue={this.state.selectValue} mode={this.props.mode} onChangeSelectValue={this.onChangeSelectValue}/>
+                    <ModeSelectBox selectValue={this.state.selectValue} mode={this.props.mode} onChangeSelectValue={this.onChangeSelectValue}/>
                     <button type="submit" className="btn">変換</button>
                 </form>
                 <p>{this.props.crypto}</p>
