@@ -1,44 +1,41 @@
 'use strict';
 
-var React = require('react');
-var ModeSelectBox = require('./mode_select_box.jsx');
+import React from 'react';
+import ModeSelectBox from './mode_select_box.jsx';
 
-var Main = React.createClass({
-    getDefaultProps: function() {
-        return {
-            mode: ['md5', 'sha256', 'sha512']
-        };
-    },
-    getInitialState: function() {
-        return {
-            selectValue: 'md5'
-        };
-    },
-    onChangeSelectValue: function(e) {
+export default class Main extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {selectValue: 'md5'};
+    }
+
+    onChangeSelectValue(e) {
         this.setState({selectValue: e.target.value});
-    },
-    handleSubmit: function(e) {
+    }
+
+    handleSubmit(e) {
         e.preventDefault();
-        var seed = React.findDOMNode(this.refs.seed).value;
-        var mode = this.state.selectValue;
+        let seed = React.findDOMNode(this.refs.seed).value;
+        let mode = this.state.selectValue;
         if (!seed) {
             return;
         }
         this.props.setCrypto(seed, mode);
         return;
-    },
-    render: function() {
+    }
+
+    render() {
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit.bind(this)}>
                     <input ref="seed" type="text"/>
-                    <ModeSelectBox selectValue={this.state.selectValue} mode={this.props.mode} onChangeSelectValue={this.onChangeSelectValue}/>
+                    <ModeSelectBox selectValue={this.state.selectValue} mode={this.props.mode} onChangeSelectValue={this.onChangeSelectValue.bind(this)}/>
                     <button type="submit" className="btn">変換</button>
                 </form>
                 <p>{this.props.crypto}</p>
             </div>
-        )
+        );
     }
-});
+}
 
-module.exports = Main;
+Main.defaultProps = {mode: ['md5', 'sha256', 'sha512']};
