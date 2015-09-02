@@ -11,7 +11,8 @@ var modeSelectBox = React.createClass({
             return <option value={mode} key={mode}>{mode}</option>;
         });
         return(
-            <div>
+            <div className="form-group">
+                <label className="col-sm-2 control-label">Hash Type</label>
                 <select value={this.props.selectValue} onChange={this.onChange}>
                     {options}
                 </select>

@@ -16,21 +16,33 @@ export default class Main extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         let seed = React.findDOMNode(this.refs.seed).value;
+        let salt = React.findDOMNode(this.refs.salt).value;
         let mode = this.state.selectValue;
         if (!seed) {
             return;
         }
-        this.props.setCrypto(seed, mode);
+        this.props.setCrypto((salt + seed), mode);
         return;
     }
 
     render() {
         return (
             <div>
-                <form onSubmit={this.handleSubmit.bind(this)}>
-                    <input ref="seed" type="text"/>
+                <form className="form-horizontal" onSubmit={this.handleSubmit.bind(this)}>
+                    <div className="form-group">
+                        <label className="col-sm-2 control-label">the string</label>
+                        <input ref="seed" type="text"/>
+                    </div>
+                    <div className="form-group">
+                        <label className="col-sm-2 control-label">add salt</label>
+                        <input ref="salt" type="text"/>
+                    </div>
                     <ModeSelectBox selectValue={this.state.selectValue} mode={this.props.mode} onChangeSelectValue={this.onChangeSelectValue.bind(this)}/>
-                    <button type="submit" className="btn">変換</button>
+                    <div className="form-group">
+                        <div className="col-sm-offset-2 col-sm-10">
+                             <button type="submit" className="btn btn-primary">変換</button>
+                        </div>
+                    </div>
                 </form>
                 <p>{this.props.crypto}</p>
             </div>
