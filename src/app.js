@@ -11,20 +11,19 @@ var App = React.createClass({
             crypto: ''
         };
     },
-    setCrypto: function(seed, mode) {
-        var self = this;
-        CryptoAction.get(function(res) {
-            self.setState({
-                crypto: res
-            });
-        }, seed, mode);
+    setCrypto: function(crypto) {
+        this.setState({crypto: crypto});
+    },
+    _onChange: function(seed, salt, position, mode) {
+        var data = {seed: seed, salt: salt, position: position, mode: mode};
+        CryptoAction.get(this.setCrypto, data);
     },
     render: function() {
         return (
             <div>
                 <Header/>
                 <div className="container">
-                    <Main setCrypto={this.setCrypto} crypto={this.state.crypto}/>
+                    <Main _onChange={this._onChange} crypto={this.state.crypto}/>
                 </div>
             </div>
         )

@@ -25,13 +25,7 @@ export default class Main extends React.Component {
         if (!seed) {
             return;
         }
-        let target;
-        if ('before' === position) {
-            target = salt + seed;
-        } else {
-            target = seed + salt;
-        }
-        this.props.setCrypto(target, mode);
+        this.props._onChange(seed, salt, position, mode);
         return;
     }
 
